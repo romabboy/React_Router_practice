@@ -5,8 +5,13 @@ import { action } from "./edit";
 
 export async function loader({params,request}){
   const contact = await getContact(params.contactId);
-  debugger
-  return {contact};
+  if (!contact) {
+    throw new Response("", {
+      status: 404,
+      statusText: "Not Found",
+    });
+  }
+  return { contact };
 }
 
 
